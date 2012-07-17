@@ -150,7 +150,8 @@ static struct usb_device_id rtw_usb_id_tbl[] ={
 	{USB_DEVICE(0x0DF6, 0x0061)},//Sitecom - Edimax
 	{USB_DEVICE(0x0B05, 0x17AB)},//ASUS - Edimax
 	{USB_DEVICE(0x0846, 0x9021)},//Netgear - Sercomm
-	{USB_DEVICE(0x0E66, 0x0019)},//Hawking,Edimax 
+	{USB_DEVICE(0x0846, 0x9041)},//Netgear - N150
+	{USB_DEVICE(0x0E66, 0x0019)},//Hawking,Edimax
 
 	/****** 8192CE-VAU  ********/
 	{USB_DEVICE(USB_VENDER_ID_REALTEK, 0x8186)},//Intel-Xavi( Azwave)
