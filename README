@@ -9,16 +9,59 @@ the Raspberry Pi.
 
 It's set-up assuming you're doing a cross-compile on an Ubuntu/Linux box,
 rather than compiling on the RPi itself.  It assumes you already have the
-arm-linux-gnueabi package installed (and that you have the kernel source).
+arm-linux-gnueabi package installed.
+
+
+================================================================================
+PREPARATION (Optional)
+================================================================================
+
+Out of the box, this is set up to build against my experimental kernel (which is
+really just a clone of bootc's RPi kernel work).  If you want to use this kernel
+you'll need to follow these instructions.  Ignore these steps if you want to use
+your own kernel sources.  First, mount your RPi SDHC card on your Ubuntu box...
+
+Next, update your RPi's firmware:
+
+  git clone https://github.com/raspberrypi/firmware/ rpi-firmware
+  cd rpi-firmware/boot
+  sudo cp arm128_start.elf arm192_start.elf arm224_start.elf bootcode.bin \
+    loader.bin start.elf /media/[SD_BOOT]/
+  cd ../..
+
+Then, check out the kernel:
+
+  git clone https://github.com/ksclarke/linux.git
+  cd linux
+  git checkout -b rpi-3.2.21-nectarine
+  make mrproper
+  cp arch/arm/configs/nectarine_defconfig .config
+  make ARCH=arm CROSS_COMPILE=/usr/bin/arm-linux-gnueabi- silentoldconfig
+
+Check how many processors you have:
+
+  cat /proc/cpuinfo | grep processor | wc -l
+
+Use that info for the compiler ("-j 6" for quad core; "-j 3" for dual core):
+
+  make ARCH=arm CROSS_COMPILE=/usr/bin/arm-linux-gnueabi- -k -j 6
+
+Copy the results to the mounted RPi partitions:
+
+  sudo cp linux/arch/arm/boot/Image /media/[SD_BOOT]/kernel.img
+  sudo make ARCH=arm modules_install INSTALL_MOD_PATH=/media/[SD_ROOT]
+
+Then, you're good to build the RTL8192CU wireless USB drivers and install them.
 
 
 ================================================================================
 INSTRUCTIONS
 ================================================================================
 
-cd rtl8192cu (or whatever you call the source directory)
+git clone https://github.com/ksclarke/rtl8192cu.git
+cd rtl8192cu
 make
-sudo make install INSTALL_MOD_PATH=/media/[PATH_TO_MOUNTED_RPI_ROOT]
+sudo make install INSTALL_MOD_PATH=/media/[SD_ROOT]
 
 
 ================================================================================
@@ -33,7 +76,7 @@ If you have the kernel somewhere else, supply that location with KSRC
 It's set-up to install based on my experimental kernel: 3.2.21-nectarine-rpi
 
 If you want to install using a different kernel, supply that version with KVER
-  For instance: sudo make install KVER=3.2.21 INSTALL_MOD_PATH=/media/[PATH]
+  For instance: sudo make install KVER=3.2.21 INSTALL_MOD_PATH=/media/[SD_ROOT]
 
 
 ===============================================================================
