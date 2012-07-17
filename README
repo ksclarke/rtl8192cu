@@ -50,6 +50,7 @@ Copy the results to the mounted RPi partitions:
 
   sudo cp linux/arch/arm/boot/Image /media/[SD_BOOT]/kernel.img
   sudo make ARCH=arm modules_install INSTALL_MOD_PATH=/media/[SD_ROOT]
+  cd ..
 
 Then, you're good to build the RTL8192CU wireless USB drivers and install them.
 
