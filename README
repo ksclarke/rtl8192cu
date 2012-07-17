@@ -1,6 +1,42 @@
+================================================================================
 INTRODUCTION
 ================================================================================
 
-Realtek's rtl8188C_8192C_usb_linux drivers for building the RTL8192CU drivers
+Realtek's rtl8188C_8192C_usb_linux drivers for RTL8192CU (v3.4.3_4369.20120622)
 
-v3.4.3_4369.20120622
+The main purpose of this repository is to build the RTL8192CU drivers for the
+Raspberry Pi.
+
+
+================================================================================
+INSTRUCTIONS
+================================================================================
+
+cd rtl8192cu (or whatever you call the source directory)
+make
+sudo make install INSTALL_MOD_PATH=/media/[PATH_TO_MOUNTED_RPI_ROOT]
+
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+It's set-up to build from a Linux kernel installed at ${PWD}/../linux
+
+If you have the kernel somewhere else, supply that location with KSRC
+  For instance: make KSRC=/lib/modules/kernel/build
+
+It's set-up to install based on my working RPi kernel: 3.2.21-nectarine-rpi
+
+If you want to install using a different kernel, supply that version with KVER
+  For instance: sudo make install KVER=3.2.21 INSTALL_MOD_PATH=/media/[PATH]
+
+
+===============================================================================
+CONTACT
+===============================================================================
+
+Kevin S. Clarke <ksclarke@gmail.com>
+
+Kernels and drivers are not my usual space so if you have suggestions, feel
+free to make them; if you have questions, I'll do my best to answer...

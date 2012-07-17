@@ -36,7 +36,9 @@ CONFIG_BT_COEXISTENCE = n
 CONFIG_RTL8192CU_REDEFINE_1X1 = n
 CONFIG_WAKE_ON_WLAN = n
 
-CONFIG_PLATFORM_I386_PC = y
+CONFIG_PLATFORM_ARM_BCM2708 = y
+
+CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_TI_AM3517 = n
 CONFIG_PLATFORM_ANDROID_X86 = n
 CONFIG_PLATFORM_ARM_S3C2K4 = n
@@ -254,7 +256,21 @@ CROSS_COMPILE ?=
 KVER  := $(shell uname -r)
 KSRC := /lib/modules/$(KVER)/build
 MODDESTDIR := /lib/modules/$(KVER)/kernel/drivers/net/wireless/
+DEPMOD_CMD := /sbin/depmod -a $(KVER)
 INSTALL_PREFIX :=
+endif
+
+#
+# Going to assume this isn't being built on the RPi, but being cross compiled
+#
+ifeq ($(CONFIG_PLATFORM_ARM_BCM2708), y)
+EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
+ARCH = arm
+KVER := 3.2.21-nectarine-rpi
+CROSS_COMPILE = /usr/bin/arm-linux-gnueabi-
+MODDESTDIR := $(INSTALL_MOD_PATH)/lib/modules/$(KVER)+/kernel/drivers/net/wireless/
+KSRC := $(shell pwd)/../linux
+DEPMOD_CMD :=
 endif
 
 ifeq ($(CONFIG_PLATFORM_TI_AM3517), y)
@@ -507,12 +523,11 @@ strip:
 
 install:
 	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
-	/sbin/depmod -a ${KVER}
+	$(DEPMOD_CMD)
 
 uninstall:
 	rm -f $(MODDESTDIR)/$(MODULE_NAME).ko
-	/sbin/depmod -a ${KVER}
-	
+	$(DEPMOD_CMD)
 	
 config_r:
 	@echo "make config"
