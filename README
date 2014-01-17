@@ -75,8 +75,6 @@ It's set-up to build from a Linux kernel installed at ${PWD}/../linux
 If you have the kernel somewhere else, supply that location with KSRC
   For instance: make KSRC=/lib/modules/kernel/build
 
-It's set-up to install based on my experimental kernel: 3.2.21-nectarine-rpi
-
 If you want to install using a different kernel, supply that version with KVER
   For instance: sudo make install KVER=3.2.21 INSTALL_MOD_PATH=/media/[SD_ROOT]
 
