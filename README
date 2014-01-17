@@ -16,10 +16,11 @@ arm-linux-gnueabi package installed.
 PREPARATION (Optional)
 ================================================================================
 
-Out of the box, this is set up to build against my experimental kernel (which is
-really just a clone of bootc's RPi kernel work).  If you want to use this kernel
-you'll need to follow these instructions.  Ignore these steps if you want to use
-your own kernel sources.  First, mount your RPi SDHC card on your Ubuntu box...
+Out of the box, this is set up to build against bootc's RPi kernel work.  If you
+want to use this kernel, you'll need to follow these instructions.  Ignore these
+steps if you want to use your own kernel sources.
+
+First, mount your RPi SDHC card on your Ubuntu box.
 
 Next, update your RPi's firmware:
 
