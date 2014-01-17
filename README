@@ -31,8 +31,9 @@ Next, update your RPi's firmware:
 
 Then, check out the kernel:
 
-  git clone https://github.com/ksclarke/linux.git
+  git clone https://github.com/bootc/linux
   cd linux
+  git checkout rpi-3.2.21
   git checkout -b rpi-3.2.21-nectarine
   make mrproper
   cp arch/arm/configs/nectarine_defconfig .config
