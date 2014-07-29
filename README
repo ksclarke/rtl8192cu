@@ -35,9 +35,9 @@ Then, check out the kernel:
   git clone https://github.com/bootc/linux
   cd linux
   git checkout rpi-3.2.21
-  git checkout -b rpi-3.2.21-nectarine
+  git checkout -b rpi-3.2.21-rtl8192cu
   make mrproper
-  cp arch/arm/configs/nectarine_defconfig .config
+  cp arch/arm/configs/bcmrpi_defconfig .config
   make ARCH=arm CROSS_COMPILE=/usr/bin/arm-linux-gnueabi- silentoldconfig
 
 Check how many processors you have:
