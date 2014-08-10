@@ -266,7 +266,7 @@ endif
 ifeq ($(CONFIG_PLATFORM_ARM_BCM2708), y)
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
 ARCH = arm
-KVER := 3.2.21-nectarine-rpi
+KVER := 3.2.21
 CROSS_COMPILE = /usr/bin/arm-linux-gnueabi-
 MODDESTDIR := $(INSTALL_MOD_PATH)/lib/modules/$(KVER)+/kernel/drivers/net/wireless/
 KSRC := $(shell pwd)/../linux
